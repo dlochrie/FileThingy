@@ -22,13 +22,29 @@ var fthingy = new FileThingy({
 });
 
 
+console.log('Starting to index files and directories.')
+
 /**
  * Start crawling the Directory(s).
  */
-fthingy.walk(sourceDir, function(err, results) {
+fthingy.walk(sourceDir, function(err) {
   if (err) return process.sterr(err);
+
+  console.log('Done Indexing.')
+
+  var totalFiles = fthingy.fileCount,
+      directories = Object.keys(fthingy.structure).length,
+      discarded = fthingy.discarded.length,
+      processedFiles = totalFiles-discarded;
+
+  console.log(totalFiles + ' files were found.');
+  console.log(directories + ' directories will be created.');
+  console.log(discarded + ' files will be discarded.');
+  console.log(processedFiles + ' files will be renamed.');
+
+  console.log('\nStarting to Process.\n')
+
   fthingy.process();
-  console.log('\n---------------------------------------------')
-  console.log(fthingy.discarded_)
-  console.log('\n---------------------------------------------')
+
+  console.log('Done Processing.')
 });
