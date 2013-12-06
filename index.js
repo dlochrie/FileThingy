@@ -21,7 +21,6 @@ var fthingy = new FileThingy({
   sourceDir: sourceDir
 });
 
-
 console.log('Starting to index files and directories.')
 
 /**
