@@ -34,11 +34,13 @@ fthingy.walk(sourceDir, function(err) {
   var totalFiles = fthingy.fileCount,
       directories = Object.keys(fthingy.structure).length,
       discarded = fthingy.discarded.length,
-      processedFiles = totalFiles-discarded;
+      ignored = fthingy.ignored.length,
+      processedFiles = totalFiles - discarded;
 
   console.log(totalFiles + ' files were found.');
   console.log(directories + ' directories will be created.');
   console.log(discarded + ' files will be discarded.');
+  console.log(ignored + ' files will be ignored.');
   console.log(processedFiles + ' files will be renamed.');
 
   console.log('\nStarting to Process.\n')
