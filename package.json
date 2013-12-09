@@ -1,0 +1,23 @@
+{
+  "name": "FileThingy",
+  "version": "0.0.1",
+  "author": "Daniel Lochrie <dlochrie@users.noreply.github.com>",
+  "description": "Renames Files and Directories Given a Renaming Recipe.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dlochrie/FileThingy.git"
+  },
+  "keywords": [
+    "file",
+    "directory",
+    "rename"
+  ],
+  "dependencies": {
+    "graceful-fs":  "2.0.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10"
+  }
+}

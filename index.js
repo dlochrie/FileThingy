@@ -57,6 +57,6 @@ fthingy.crawl(sourceDir, function(err) {
   console.log('\nStarting to Process.\n');
   var start = new Date();
   fthingy.process();
-  console.log('Done proceesing.');
+  console.log('Done processing.');
   console.log('Processed in ' + util.getExecutionTime(start) + ' seconds.');
 });
