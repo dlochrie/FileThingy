@@ -13,9 +13,6 @@
     "directory",
     "rename"
   ],
-  "dependencies": {
-    "graceful-fs":  "2.0.1"
-  },
   "license": "MIT",
   "engines": {
     "node": ">=0.10"
