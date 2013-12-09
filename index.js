@@ -36,21 +36,22 @@ var fthingy = new FileThingy({
 });
 
 
+/**
+ * Check if targetDir is writeable, and abort if it is not.
+ */
+stats = fs.stat(targetDir, function(err, stat) {
+  // TODO: For now this only checks if it exists...
+  if (err) {
+    util.formatHelp('targetDir', 'error', targetDir);
+  }
+});
+
 
 /**
  * Start crawling the Directory(s).
  */
 var indexStart = new Date();
 console.log('Starting to index files and directories.');
-
-
-// // Check if targetDir is writeable...
-console.log('Check if targetDir is writeable...');
-var stats = fs.statSync(targetDir);
-console.log(stats.isDirectory());
-
-
-
 fthingy.crawl(sourceDir, function(err) {
   // TODO: This doesn't handle anything...
   if (err) return process.sterr(err);
@@ -72,7 +73,8 @@ fthingy.crawl(sourceDir, function(err) {
 
   console.log('\nStarting to Process.\n');
   var start = new Date();
-  fthingy.process();
-  console.log('Done processing.');
-  console.log('Processed in ' + util.getExecutionTime(start) + ' seconds.');
+  fthingy.process(function() {
+    console.log('Done processing.');
+    console.log('Processed in ' + util.getExecutionTime(start) + ' seconds.');
+  });
 });
