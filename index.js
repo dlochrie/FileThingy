@@ -1,11 +1,6 @@
 var FileThingy = require('./lib/filethingy'),
-    Util = require('./lib/util');
-
-/**
- * Kick the whole process off.
- */
-var args = process.argv;
-var sourceDir = (args.length > 2) ? args[2] : null;
+    Util = require('./lib/util'),
+    fs = require('fs');
 
 
 /**
@@ -15,19 +10,31 @@ var util = new Util();
 
 
 /**
- * Initialize FileThingy Class.
+ * Handle the arguments passed:
+ *     [0] node system command
+ *     [1] FileThingy module
+ *     [2] Source Directory
+ *     [3] Target Directory
  */
-var fthingy = new FileThingy({
-  sourceDir: sourceDir
-});
+var args = process.argv;
+var sourceDir = args[2] || null;
+var targetDir = args[3] || null;
+
+if (!sourceDir) {
+  util.help();
+} else if (!targetDir) {
+  util.formatHelp('targetDir', 'missing')
+}
 
 
 /**
- * Shows help message if no directory is provided.
+ * Initialize FileThingy Class.
  */
-if (!sourceDir) {
-  util.help();
-}
+var fthingy = new FileThingy({
+  sourceDir: sourceDir,
+  targetDir: targetDir
+});
+
 
 
 /**
@@ -35,6 +42,15 @@ if (!sourceDir) {
  */
 var indexStart = new Date();
 console.log('Starting to index files and directories.');
+
+
+// // Check if targetDir is writeable...
+console.log('Check if targetDir is writeable...');
+var stats = fs.statSync(targetDir);
+console.log(stats.isDirectory());
+
+
+
 fthingy.crawl(sourceDir, function(err) {
   // TODO: This doesn't handle anything...
   if (err) return process.sterr(err);
