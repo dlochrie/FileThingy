@@ -57,8 +57,10 @@ fthingy.crawl(sourceDir, function(err) {
   if (err) return process.sterr(err);
 
   console.log('Done Indexing.');
-  console.log('Indexed in ' + util.getExecutionTime(indexStart) + ' seconds.');
+  console.log('Index Time:\t' + util.getExecutionTime(indexStart) +
+      ' seconds.');
 
+  /** Begin Report - Should be logged! */
   var totalFiles = fthingy.fileCount,
       directories = Object.keys(fthingy.structure).length,
       discarded = fthingy.discarded.length,
@@ -70,11 +72,14 @@ fthingy.crawl(sourceDir, function(err) {
   console.log(discarded + ' files will be discarded.');
   console.log(ignored + ' files will be ignored.');
   console.log(processedFiles + ' files will be renamed.');
+  /** End Report - Should be logged! */
 
   console.log('\nStarting to Process.\n');
   var start = new Date();
-  fthingy.process(function() {
+  fthingy.process(function(err) {
     console.log('Done processing.');
-    console.log('Processed in ' + util.getExecutionTime(start) + ' seconds.');
+    console.log('Process Time:\t' + util.getExecutionTime(start) + ' seconds.');
+    console.log('Total Time:\t' + util.getExecutionTime(indexStart) +
+        ' seconds.');
   });
 });
