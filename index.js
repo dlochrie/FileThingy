@@ -51,35 +51,24 @@ stats = fs.stat(targetDir, function(err, stat) {
  * Start crawling the Directory(s).
  */
 var indexStart = new Date();
-console.log('Starting to index files and directories.');
+fthingy.log.message('Starting to index files and directories.');
 fthingy.crawl(sourceDir, function(err) {
-  // TODO: This doesn't handle anything...
+  // TODO: This doesn't seem to handle anything...
   if (err) return process.sterr(err);
 
-  console.log('Done Indexing.');
-  console.log('Index Time:\t' + util.getExecutionTime(indexStart) +
+  fthingy.log.message('Done Indexing.');
+  fthingy.log.message('Index Time:\t' + util.getExecutionTime(indexStart) +
       ' seconds.');
 
-  /** Begin Report - Should be logged! */
-  var totalFiles = fthingy.fileCount,
-      directories = Object.keys(fthingy.structure).length,
-      discarded = fthingy.discarded.length,
-      ignored = fthingy.ignored.length,
-      processedFiles = totalFiles - discarded;
+  fthingy.log.report(fthingy);
 
-  console.log(totalFiles + ' files were found.');
-  console.log(directories + ' directories will be created.');
-  console.log(discarded + ' files will be discarded.');
-  console.log(ignored + ' files will be ignored.');
-  console.log(processedFiles + ' files will be renamed.');
-  /** End Report - Should be logged! */
-
-  console.log('\nStarting to Process.\n');
+  fthingy.log.message('\nStarting to Process.\n');
   var start = new Date();
   fthingy.process(function(err) {
-    console.log('Done processing.');
-    console.log('Process Time:\t' + util.getExecutionTime(start) + ' seconds.');
-    console.log('Total Time:\t' + util.getExecutionTime(indexStart) +
+    fthingy.log.message('Done processing.');
+    fthingy.log.message('Process Time:\t' + util.getExecutionTime(start) +
+        ' seconds.');
+    fthingy.log.message('Total Time:\t' + util.getExecutionTime(indexStart) +
         ' seconds.');
   });
 });
