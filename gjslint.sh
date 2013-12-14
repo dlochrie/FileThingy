@@ -1,7 +1,11 @@
 #!/bin/sh
 
-echo "Checking for Closure Lint Errors."
-gjslint -r . -e node_modules --strict
+# Output Colors
+GREEN="\033[33;32m"
+RESET="\033[0;00m"
 
-echo "Done Checking Closure Errors - attempting to autofix."
-fixjsstyle -r . -e node_modules --strict
+echo "${GREEN}Checking for Closure Lint Errors. ${RESET}"
+gjslint -r . -e node_modules --strict --jslint_error=all
+
+echo "${GREEN}Done Checking Closure Errors - attempting to autofix. ${RESET}"
+fixjsstyle -r . -e node_modules --strict --jslint_error=all
