@@ -4,6 +4,9 @@
   "author": "Daniel Lochrie <dlochrie@users.noreply.github.com>",
   "description": "Renames Files and Directories Given a Renaming Recipe.",
   "main": "index.js",
+  "dependencies": {
+    "optimist": "0.6.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dlochrie/FileThingy.git"

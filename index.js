@@ -1,6 +1,7 @@
 var FileThingy = require('./lib/filethingy'),
     Util = require('./lib/util'),
-    fs = require('fs');
+    fs = require('fs'),
+    optimist = require('optimist');
 
 
 /**
@@ -16,33 +17,31 @@ var util = new Util();
  *     [2] Source Directory
  *     [3] Target Directory
  */
-var args = process.argv;
-var sourceDir = args[2] || null;
-var targetDir = args[3] || null;
+var args = require('optimist').argv;
+args.sourceDir = args._[0] || null;
+args.targetDir = args._[1] || null;
 
-if (!sourceDir) {
+
+if (!args.sourceDir) {
   util.help();
-} else if (!targetDir) {
+} else if (!args.targetDir) {
   util.formatHelp('targetDir', 'missing');
 }
 
 
 /**
- * Initialize FileThingy Class.
+ * Initialize FileThingy Class with command line options.
  */
-var fthingy = new FileThingy({
-  sourceDir: sourceDir,
-  targetDir: targetDir
-});
+var fthingy = new FileThingy(args);
 
 
 /**
  * Check if targetDir is writeable, and abort if it is not.
  */
-stats = fs.stat(targetDir, function(err, stat) {
+stats = fs.stat(args.targetDir, function(err, stat) {
   // TODO: For now this only checks if it exists...
   if (err) {
-    util.formatHelp('targetDir', 'error', targetDir);
+    util.formatHelp('targetDir', 'error', args.targetDir);
   }
 });
 
@@ -52,7 +51,7 @@ stats = fs.stat(targetDir, function(err, stat) {
  */
 var indexStart = new Date();
 fthingy.log.message('Starting to index files and directories.');
-fthingy.crawl(sourceDir, function(err) {
+fthingy.crawl(args.sourceDir, function(err) {
   // TODO: This doesn't seem to handle anything...
   if (err) return process.sterr(err);
 
