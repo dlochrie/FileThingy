@@ -23,7 +23,7 @@ var targetDir = args[3] || null;
 if (!sourceDir) {
   util.help();
 } else if (!targetDir) {
-  util.formatHelp('targetDir', 'missing')
+  util.formatHelp('targetDir', 'missing');
 }
 
 
